@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>An Bealach — Emergency Alert</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f5f3;
+  text-align: center;
+  padding: 30px;
+}
+.container {
+  max-width: 420px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 15px;
+  font-size: 18px;
+  background: #2f7f6f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+button:active {
+  background: #245f53;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>An Bealach — Emergency Alert</h2>
+<p>If you are in danger or need help, press the button below.</p>
+
+<button onclick="sendAlert()">SEND EMERGENCY ALERT</button>
+
+<p style="margin-top:20px;font-size:14px;">
+Make sure location is enabled on your phone for accurate coordinates.
+</p>
+</div>
+
+<script>
+function sendAlert() {
+  if (!navigator.geolocation) {
+    alert("Location not supported.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+    const message = `EMERGENCY ALERT: I need help. My location is: ${mapsLink}`;
+
+    const smsLink = `sms:?&body=${encodeURIComponent(message)}`;
+    window.location.href = smsLink;
+  },
+  function() {
+    alert("Location permission denied.");
+  });
+}
+</script>
+
+</body>
+</html>
