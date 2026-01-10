@@ -58,5 +58,33 @@ button:active {
 
 <h3>About An Bealach</h3>
 <p><em>An Bealach</em> means “The Path” in Irish — a reminder that whatever road you’re on, you don’t walk it alone.</p>
+<script>
+function sendAlert() {
+  if (!navigator.geolocation) {
+    alert("Location is not supported on this device.");
+    return;
+  }
 
+  navigator.geolocation.getCurrentPosition(function(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
 
+    const message = `🚨 EMERGENCY ALERT 🚨
+I need help. This is my current location:
+https://maps.google.com/?q=${lat},${lon}`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Emergency Alert",
+        text: message
+      });
+    } else {
+      window.location.href = `sms:?body=${encodeURIComponent(message)}`;
+    }
+  }, function() {
+    alert("Location permission was denied.");
+  });
+}
+</script>
+</body>
+</html>
