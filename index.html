@@ -2,89 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>An Bealach — Emergency Alert</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>An Bealach – Safety Alert</title>
 <style>
-body {<script>
-document.getElementById("alertBtn").addEventListener("click", function() {
-  alert("Button works");
-});
-</script>
+body {
   font-family: Arial, sans-serif;
-  background: #f2f5f3;
-  text-align: center;
-  padding: 30px;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
 }
 .container {
-  max-width: 420px;
+  max-width: 500px;
   margin: auto;
   background: white;
   padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  border-radius: 10px;
+  text-align: center;
 }
 button {
-  width: 100%;
-  padding: 16px;
-  margin-top: 15px;
-  font-size: 18px;
-  background: #2f7f6f;
+  background: #c62828;
   color: white;
   border: none;
+  padding: 15px 25px;
   border-radius: 8px;
+  font-size: 18px;
+  margin: 20px 0;
 }
-button:active {
-  background: #245f53;
+.section {
+  text-align: left;
+  margin-top: 20px;
 }
 </style>
 </head>
 
 <body>
 <div class="container">
-<h2>An Bealach — Emergency Alert</h2>
-<p>If you are in danger or need help, press the button below.</p>
+<h2>An Bealach Safety Alert</h2>
 
-<button onclick="sendAlert()">SEND EMERGENCY ALERT</button><div style="margin-top: 25px; text-align: left; font-size: 16px; line-height: 1.5;">
+<p>If you feel unsafe or need help, press the button below.</p>
 
-<h3>How it works (60 seconds):</h3>
-<ol>
-<li>Tap <strong>SEND EMERGENCY ALERT</strong></li>
-<li>Choose your emergency contact</li>
-<li>Tap <strong>Share location</strong></li>
-<li>Press <strong>Send</strong></li>
-</ol>
+<button id="alertBtn">SEND EMERGENCY ALERT</button>
 
-<p><strong>That’s it. Your location is sent immediately.</strong></p>
-
-<h3>When to use</h3>
-<p>Walking · Running · Traveling · Hiking · Alone · Feeling unsafe</p>
-
-<h3>About An Bealach</h3>
-<p><em>An Bealach</em> means “The Path” in Irish — a reminder that whatever road you’re on, you don’t walk it alone.</p>
-<script>
-function sendAlert() {
-  if (!navigator.geolocation) {
-    alert("Location is not supported on this device.");
-    return;
-  }
-
-  navigator.geolocation.getCurrentPosition(function(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-    const message = `🚨 EMERGENCY ALERT 🚨
-I need help. This is my current location:
-https://maps.google.com/?q=${lat},${lon}`;
-
-    if (navigator.share) {
-      navigator.share({
-        title: "Emergency Alert",
-        text: message
-      });
-    } else {
-      window.location.href = `sms:?body=${encodeURIComponent(message)}`;
-    }
-  }, function() {
-    alert("Location permission was denied.");
-  <button id="alertBtn">SEND EMERGENCY ALERT</button>
+<div class="section">
+<h3>How it works (60 seconds)</h3>
+<p>
+1. Tap <b>SEND EMERGENCY ALERT</b><br>
+2. Choose your emergency contact<br>
+3. Tap <b>Share location</b><br>
