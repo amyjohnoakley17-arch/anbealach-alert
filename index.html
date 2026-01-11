@@ -1,3 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>An Bealach – Emergency Alert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f5f3;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #4f7f73;
+      color: white;
+      border: none;
+      padding: 18px 28px;
+      font-size: 18px;
+      border-radius: 12px;
+      margin: 25px 0;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3f695f;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>An Bealach — Emergency Alert</h1>
+  <p>If you are in danger or need help, press the button below.</p>
+
+  <button onclick="sendAlert()">SEND EMERGENCY ALERT</button>
+
+  <p class="small">Make sure location is enabled on your phone.</p>
+
+  <h3>How it works (60 seconds)</h3>
+  <p>
+    1. Tap <b>SEND EMERGENCY ALERT</b><br>
+    2. Choose your emergency contact<br>
+    3. Tap <b>Share location</b><br>
+    4. Press <b>Send</b>
+  </p>
+
+  <p><b>That’s it. Your location is sent immediately.</b></p>
+
+  <h3>When to use</h3>
+  <p>Walking · Running · Traveling · Hiking · Alone · Feeling unsafe</p>
+
+  <h3>About An Bealach</h3>
+  <p><i>An Bealach means “The Path” in Irish — a reminder that whatever road you’re on, you don’t walk it alone.</i></p>
+</div>
+
 <script>
 function sendAlert() {
   const sms = window.open("sms:");
@@ -7,13 +92,19 @@ function sendAlert() {
     return;
   }
 
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
-    const msg = `EMERGENCY. I need help. My location: https://maps.google.com/?q=${lat},${lon}`;
-    sms.location.href = "sms:?body=" + encodeURIComponent(msg);
-  }, function() {
-    sms.location.href = "sms:?body=EMERGENCY. I need help. (Location unavailable)";
-  });
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const msg = `EMERGENCY. I need help. My location: https://maps.google.com/?q=${lat},${lon}`;
+      sms.location.href = "sms:?body=" + encodeURIComponent(msg);
+    },
+    function() {
+      sms.location.href = "sms:?body=EMERGENCY. I need help. (Location unavailable)";
+    }
+  );
 }
 </script>
+
+</body>
+</html>
